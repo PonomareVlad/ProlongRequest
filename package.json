@@ -1,0 +1,17 @@
+{
+  "name": "micro-template",
+  "author": "Vladislav Ponomarev <PonomareVlad@users.noreply.github.com> (https://PonomareVlad.ru)",
+  "funding": "https://PonomareVlad.ru/donate",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.mjs",
+  "scripts": {
+    "start": "micro -l tcp://0.0.0.0:${PORT-80}"
+  },
+  "devDependencies": {
+    "micro": "^10.0.1"
+  },
+  "engines": {
+    "node": "^18.0.0"
+  }
+}
