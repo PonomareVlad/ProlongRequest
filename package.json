@@ -6,7 +6,8 @@
   "type": "module",
   "main": "src/index.mjs",
   "scripts": {
-    "start": "micro -l tcp://0.0.0.0:${PORT-80}"
+    "start": "micro -l tcp://0.0.0.0:${PORT-80}",
+    "micro-dev": "node --watch node_modules/.bin/micro -l tcp://0.0.0.0:${PORT-80}"
   },
   "devDependencies": {
     "micro": "^10.0.1"
