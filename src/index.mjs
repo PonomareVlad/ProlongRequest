@@ -29,10 +29,10 @@ const getBody = async req => {
 const proxyRequest = async (req, res) => {
     const {method} = req;
     const time = Date.now();
-    console.log(method, url.href);
     if (req.url === "/") return example;
     const headers = sanitizeHeaders(req.headers);
     const url = new URL(sanitizeURL(req.url.slice(1)));
+    console.log(method, url.href);
     const body = await getBody(req);
     const response = await fetch(url, {method, body, headers});
     const data = await response.text();
