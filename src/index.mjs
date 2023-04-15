@@ -1,6 +1,10 @@
 import {send} from "micro";
 import {scheduler} from "node:timers/promises";
 
+const {
+    RENDER_EXTERNAL_URL = "http://localhost"
+} = process.env;
+
 const ignoredHeaders = ["host", "connection"];
 
 const isValidHeader = ([header, value]) => {
@@ -8,6 +12,8 @@ const isValidHeader = ([header, value]) => {
     if (typeof value !== "string") return;
     return true;
 }
+
+const example = `Example: ${RENDER_EXTERNAL_URL}/api.ipify.org`;
 
 const sanitizeURL = url => url.startsWith("http") ? url : `http://${url}`;
 
@@ -18,6 +24,7 @@ const sanitizeHeaders = headers => {
 const proxyRequest = async (req, res) => {
     const time = Date.now();
     const {method, body} = req;
+    if (req.url === "/") return example;
     const headers = sanitizeHeaders(req.headers);
     const url = new URL(sanitizeURL(req.url.slice(1)));
     console.log(method, url.href);
