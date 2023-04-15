@@ -1,4 +1,4 @@
-import {send} from "micro";
+import {send, buffer} from "micro";
 import {scheduler} from "node:timers/promises";
 
 const {
@@ -21,13 +21,19 @@ const sanitizeHeaders = headers => {
     return Object.fromEntries(Object.entries(headers).filter(isValidHeader));
 }
 
+const getBody = async req => {
+    if (req.method.toLowerCase() !== "post") return;
+    return new Blob([await buffer(req)]);
+}
+
 const proxyRequest = async (req, res) => {
+    const {method} = req;
     const time = Date.now();
-    const {method, body} = req;
+    console.log(method, url.href);
     if (req.url === "/") return example;
     const headers = sanitizeHeaders(req.headers);
     const url = new URL(sanitizeURL(req.url.slice(1)));
-    console.log(method, url.href);
+    const body = await getBody(req);
     const response = await fetch(url, {method, body, headers});
     const data = await response.text();
     console.log(method, url.href, response.statusText, "—", Date.now() - time, "ms");
