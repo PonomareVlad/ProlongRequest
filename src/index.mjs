@@ -44,8 +44,12 @@ const proxyRequest = async (req, res) => {
 export default async (req, res) => {
     try {
         const text = "Request prolonged ...";
-        const timeout = scheduler.wait(50_000).then(() => console.log(text) || text);
-        return await Promise.race([timeout, proxyRequest(req, res)]);
+        const controller = new AbortController();
+        const {signal} = controller;
+        const timeout = scheduler.wait(50_000, {signal}).then(() => console.log(text) || text);
+        const result = await Promise.race([timeout, proxyRequest(req, res)]);
+        controller.abort("Request complete !");
+        return result;
     } catch (e) {
         console.error(e.message || e);
         return send(res, 500, e.message || e);
