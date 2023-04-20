@@ -2,7 +2,8 @@ import {send, buffer} from "micro";
 import {scheduler} from "node:timers/promises";
 
 const {
-    RENDER_EXTERNAL_URL = "http://localhost"
+    FLY_APP_NAME,
+    RENDER_EXTERNAL_URL = FLY_APP_NAME ? `https://${FLY_APP_NAME}.fly.dev` : "http://localhost"
 } = process.env;
 
 const ignoredHeaders = ["host", "connection"];
