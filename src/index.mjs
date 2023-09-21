@@ -8,10 +8,10 @@ const {
     RENDER_EXTERNAL_URL = FLY_APP_NAME ? `https://${FLY_APP_NAME}.fly.dev` : "http://localhost"
 } = process.env;
 
-const ignoredHeaders = ["host", "connection"];
+const ignoredHeaders = ["host", "connection", "content-length"];
 
 const isValidHeader = ([header, value]) => {
-    if (ignoredHeaders.includes(header)) return;
+    if (ignoredHeaders.includes(header.toLowerCase())) return;
     if (typeof value !== "string") return;
     return true;
 }
