@@ -9,7 +9,7 @@
     "start": "micro -l tcp://0.0.0.0:${PORT-80}",
     "micro-dev": "node --watch node_modules/.bin/micro -l tcp://0.0.0.0:${PORT-80}"
   },
-  "devDependencies": {
+  "dependencies": {
     "micro": "^10.0.1"
   },
   "engines": {
