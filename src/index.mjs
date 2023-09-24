@@ -18,7 +18,7 @@ const isValidHeader = ([header, value]) => {
 
 const example = `Example: ${RENDER_EXTERNAL_URL}/api.ipify.org`;
 
-const sanitizeURL = url => url.startsWith("http") ? url : `http://${url}`;
+const sanitizeURL = url => (url.startsWith("http") ? url : `http://${url}`).replaceAll(RENDER_EXTERNAL_URL, "");
 
 const sanitizeHeaders = headers => {
     return Object.fromEntries(Object.entries(headers).filter(isValidHeader));
